@@ -198,7 +198,6 @@ class Main(tk.Tk):
         cities = self.__citiesList.getCities()
 
         for j in range(years):
-            print(j)
             for city in cities:
                 city.updateOne()
             for city in cities:
