@@ -5,7 +5,7 @@ from tkinter import ttk
 from functools import partial
 from threading import Thread
 from time import sleep
-from copy import deepcopy
+from copy import copy
 
 class City:
     def __init__(self, pop: int, growth: int, casualties: int) -> None:
@@ -23,10 +23,9 @@ class City:
             self.__pop -= self.__casualties
     
     def calcBiggerCity(self, cities: list[City]) -> None:
-        newcities = deepcopy(cities)
+        newcities = copy(cities)
         if self in newcities:
             newcities.remove(self)
-        self.__leaving = 0
         for _ in range(self.__pop):
             if random.randint(0, 1):
                 continue
@@ -39,6 +38,8 @@ class City:
     def updateThree(self) -> None:
         self.__pop -= self.__leaving
         self.__pop += self.__entering
+        self.__leaving = 0
+        self.__entering = 0
     
     def addEntering(self, new: int) -> None:
         self.__entering += new
@@ -197,7 +198,7 @@ class Main(tk.Tk):
 
         cities = self.__citiesList.getCities()
 
-        for j in range(years):
+        for _ in range(years):
             for city in cities:
                 city.updateOne()
             for city in cities:

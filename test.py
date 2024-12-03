@@ -21,7 +21,6 @@ class City:
         newcities = copy(cities)
         if self in newcities:
             newcities.remove(self)
-        self.__leaving = 0
         for _ in range(self.__pop):
             if random.randint(0, 1):
                 continue
@@ -34,6 +33,8 @@ class City:
     def updateThree(self) -> None:
         self.__pop -= self.__leaving
         self.__pop += self.__entering
+        self.__leaving = 0
+        self.__entering = 0
     
     def addEntering(self, new: int) -> None:
         self.__entering += new
